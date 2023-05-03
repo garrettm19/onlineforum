@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Forum - Login</title>
+    </head>
+    <body>
+        <h1>Welcome to My Forum</h1>
+        {% with messages = get_flashed_messages(category_filter=['error']) %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="/login" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <p><a href="/">Home</a> | <a href="/register">Register</a></p>
+    </body>
+</html>
