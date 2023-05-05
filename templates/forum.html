@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Forum</h1>
+  <div class="thread-form">
+    <h2>Create a new thread</h2>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.title.label }} {{ form.title() }}
+      {{ form.content.label }} {{ form.content() }}
+      {{ form.submit() }}
+    </form>
+  </div>
+  {% for thread in threads %}
+    <div class="thread">
+      <h2>{{ thread.title }}</h2>
+      <p>{{ thread.content }}</p>
+      <p>Created by {{ thread.author_name }}</p>
+      <a href="{{ url_for('view_thread', thread_id=thread.id) }}">View Thread</a>
+    </div>
+  {% endfor %}
+{% endblock %}

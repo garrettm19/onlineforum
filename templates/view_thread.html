@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ thread.title }}</h1>
+    <p>{{ thread.content }}</p>
+    <p>Created by {{ thread.author_name }}</p>
+
+    <hr>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            {% if comment.timestamp %}
+                <p>Posted by {{ comment.author_name }} on {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            {% else %}
+                <p>Posted by {{ comment.author_name }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+        <hr>
+
+        <h2>Add a comment</h2>
+        <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.content.label }} {{ form.content() }}
+        {{ form.submit() }}
+        </form>
+    {% else %}
+        <hr>
+
+        <p>You must be <a href="{{ url_for('login') }}">logged in</a> to add a comment.</p>
+    {% endif %}
+{% endblock %}
